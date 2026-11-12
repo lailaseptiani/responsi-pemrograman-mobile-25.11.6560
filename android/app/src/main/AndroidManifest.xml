@@ -1,6 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Izin akses internet untuk request HTTP ke API publik -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- allowBackup="false": data lokal (SharedPreferences & secure storage)
+         tidak ikut di-backup otomatis ke cloud / adb backup -->
     <application
-        android:label="responsi_profil_mahasiswa"
+        android:label="Profil Mahasiswa"
+        android:allowBackup="false"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -11,6 +11,17 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Penyimpanan lokal metadata catatan & profil (Pertemuan state & preferences)
+  shared_preferences: ^2.5.3
+  # Penyimpanan terenkripsi untuk isi catatan
+  flutter_secure_storage: ^9.2.4
+  # Konfigurasi dari file .env (tanpa hardcoded credential)
+  flutter_dotenv: ^5.2.1
+  # Request HTTP GET ke API publik (Soal 4)
+  http: ^1.2.2
+  # Format tanggal catatan
+  intl: ^0.20.2
+
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
@@ -20,3 +31,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  # File .env harus didaftarkan sebagai asset agar dapat dibaca flutter_dotenv.
+  # Salin .env.example menjadi .env sebelum menjalankan aplikasi.
+  assets:
+    - .env

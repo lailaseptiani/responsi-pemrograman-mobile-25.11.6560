@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-void main() {
+import 'config/app_config.dart';
+import 'config/app_theme.dart';
+
+/// Entry point aplikasi: memuat konfigurasi `.env` lalu menjalankan app.
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppConfig.load();
   runApp(const ResponsiApp());
 }
 
@@ -11,10 +17,11 @@ class ResponsiApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Profil Mahasiswa',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      theme: AppTheme.light,
+      home: const Scaffold(
         body: Center(child: Text('Responsi Profil Mahasiswa')),
       ),
     );
