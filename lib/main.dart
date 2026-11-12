@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'config/app_config.dart';
 import 'config/app_theme.dart';
+import 'providers/app_provider.dart';
 
 /// Entry point aplikasi: memuat konfigurasi `.env` lalu menjalankan app.
 Future<void> main() async {
@@ -11,18 +12,23 @@ Future<void> main() async {
 }
 
 /// Widget root aplikasi Profil Mahasiswa dengan Catatan Kuliah.
+///
+/// [AppProviderWrapper] diletakkan di atas [MaterialApp] agar semua
+/// halaman dapat mengakses state.
 class ResponsiApp extends StatelessWidget {
   /// Membuat [ResponsiApp].
   const ResponsiApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Profil Mahasiswa',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      home: const Scaffold(
-        body: Center(child: Text('Responsi Profil Mahasiswa')),
+    return AppProviderWrapper(
+      child: MaterialApp(
+        title: 'Profil Mahasiswa',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.light,
+        home: const Scaffold(
+          body: Center(child: Text('Responsi Profil Mahasiswa')),
+        ),
       ),
     );
   }
