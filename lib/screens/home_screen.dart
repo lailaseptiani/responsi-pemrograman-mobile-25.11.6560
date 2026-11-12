@@ -4,11 +4,15 @@ import '../models/note.dart';
 import '../providers/app_provider.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/note_card.dart';
+import '../widgets/profile_card.dart';
 import 'note_form_screen.dart';
+import 'post_list_screen.dart';
+import 'profile_screen.dart';
 
 /// Halaman utama aplikasi.
 ///
 /// Berisi:
+/// * Profil singkat (nama & NIM) di bagian atas.
 /// * Daftar catatan memakai `ListView.builder` dan [NoteCard].
 /// * [EmptyState] jika belum ada catatan, serta loading & error state.
 /// * `FloatingActionButton` untuk menambah catatan.
@@ -24,12 +28,29 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Catatan Kuliah'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.public),
+            tooltip: 'Data API',
+            onPressed: () => _openPostList(context),
+          ),
+          IconButton(
+            icon: const Icon(Icons.person),
+            tooltip: 'Profil',
+            onPressed: () => _openProfile(context),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          ProfileCard(
+            student: provider.student,
+            compact: true,
+            onTap: () => _openProfile(context),
+          ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
             child: Text(
               'Catatan Saya (${provider.notes.length})',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -112,6 +133,22 @@ class HomeScreen extends StatelessWidget {
         const SnackBar(content: Text('Catatan berhasil disimpan')),
       );
     }
+  }
+
+  /// HomeScreen → ProfileScreen.
+  void _openProfile(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ProfileScreen()),
+    );
+  }
+
+  /// HomeScreen → PostListScreen (data dari API publik).
+  void _openPostList(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const PostListScreen()),
+    );
   }
 
   /// Menampilkan isi lengkap catatan dalam bottom sheet.
